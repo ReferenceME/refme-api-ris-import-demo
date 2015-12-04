@@ -1,0 +1,9 @@
+<h1>Hello there!</h1>
+
+<% if @profile %>
+    <h2>Your Profile</h2>
+    <pre><%= JSON.pretty_generate(@profile) %></pre>
+    <a href="/logout">Log out</a>
+<% else %>
+    <a href="/auth">Please sign-in</a>
+<% end %>
