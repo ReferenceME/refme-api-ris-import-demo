@@ -42,10 +42,20 @@ get '/auth/callback' do
   redirect '/'
 end
 
+post '/import' do
+  redirect '/' if session[:access_token].nil?
+  puts "Imported!"
+  redirect '/'
+end
+
 def json_response_for_path(url)
   access_token = OAuth2::AccessToken.new(client, session[:access_token])
   p access_token
   JSON.parse(access_token.get(url, { headers: {'Accept': 'application/vnd.refme-v1+json'} }).body)
+rescue OAuth2::Error => e
+  puts e
+  session[:access_token] = nil
+  redirect '/'
 end
 
 def redirect_uri

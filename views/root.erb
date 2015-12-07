@@ -4,6 +4,13 @@
     <h2>Your Profile</h2>
     <pre><%= JSON.pretty_generate(@profile) %></pre>
     <a href="/logout">Log out</a>
+
+    <form method="post" action="/import">
+      <textarea name="textarea" rows="10" cols="50">
+        Write something here
+      </textarea>
+      <input type="submit" value="import">
+    </form>
 <% else %>
     <a href="/auth">Please sign-in</a>
 <% end %>
