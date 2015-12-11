@@ -4,6 +4,7 @@ require 'sinatra'
 require 'oauth2'
 require 'json'
 require 'dotenv'
+require 'rest-client'
 
 Dotenv.load
 
@@ -44,8 +45,13 @@ end
 
 post '/import' do
   redirect '/' if session[:access_token].nil?
+
+  import = RestClient.post "#{ENV['OAUTH2_API_BASE_URL']}/api/user/references/import",
+             { 'source' => params[:ris_file][:tempfile], multipart: true },
+             {:Authorization => "Bearer #{session[:access_token]}", :Accept => 'application/vnd.refme-v1+json'}
   puts "Imported!"
-  redirect '/'
+  @import_response = JSON.parse(import)
+  erb :import_response
 end
 
 def json_response_for_path(url)

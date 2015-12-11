@@ -5,10 +5,9 @@
     <pre><%= JSON.pretty_generate(@profile) %></pre>
     <a href="/logout">Log out</a>
 
-    <form method="post" action="/import">
-      <textarea name="textarea" rows="10" cols="50">
-        Write something here
-      </textarea>
+    <form method="post" action="/import" enctype="multipart/form-data">
+      <input type="file" name="ris_file" accept="application/x-research-info-systems">
+      <br>
       <input type="submit" value="import">
     </form>
 <% else %>
