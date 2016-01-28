@@ -44,7 +44,7 @@ get '/auth/callback' do
 end
 
 post '/import' do
-  redirect '/' if session[:access_token].nil?
+  redirect '/' if session[:access_token].nil? or params[:ris_file].nil?
 
   import = RestClient.post "#{ENV['OAUTH2_API_BASE_URL']}/api/user/references/import",
              { 'source' => params[:ris_file][:tempfile], multipart: true },
